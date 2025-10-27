@@ -11,6 +11,15 @@ void Warehouse::addItem() {
     Item item;
     cout << "Enter SKU: ";
     cin >> item.sku;
+    
+     if (inventory.find(item.sku) != inventory.end()) {
+        cout << " Error: SKU '" << item.sku << "' already exists for item '"
+             << inventory[item.sku].name << "' (Quantity: "
+             << inventory[item.sku].quantity << ").\n";
+        return;
+    }
+
+
     cout << "Enter Item Name: ";
     cin >> item.name;
     cout << "Enter Quantity: ";
@@ -27,6 +36,12 @@ void Warehouse::storeItem() {
 
     if (inventory.find(sku) == inventory.end()) {
         cout << "Item not found in inventory!\n";
+        return;
+    }
+
+    if (inventory[sku].rackNo != -1) {
+        cout << " Item with SKU '" << sku << "' is already stored in Rack "
+             << inventory[sku].rackNo << ".\n";
         return;
     }
 
